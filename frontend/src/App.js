@@ -5,6 +5,7 @@ function App() {
   const [location, setLocation] = useState('');
   const [hasSelected, setHasSelected] = useState(false);
   const autocompleteInputRef = useRef(null);
+  const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
     const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current);
@@ -33,7 +34,7 @@ function App() {
     }
     try {
       const response = await axios.post('http://localhost:5000/api/weather', { location });
-      console.log(response.data);
+      setWeatherData(response.data);
       // Later, you will set the received data to your state and render it in your component
     } catch (error) {
       console.error('Error while fetching weather data:', error);
@@ -42,6 +43,15 @@ function App() {
 
   return (
     <div className="App">
+      {
+        weatherData && weatherData.daily.slice(0, 7).map((day, index) => (
+          <div key={index}>
+            <h2>Day {index + 1}</h2>
+            <p>Temperature: {day.temp.day}°C</p>
+            <p>Weather: {day.weather[0].description}</p>
+          </div>
+        ))
+      }
       <h1>Weather App</h1>
       <form onSubmit={handleSubmit}>
         <input
