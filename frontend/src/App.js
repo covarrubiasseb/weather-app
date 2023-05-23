@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 function App() {
   const [location, setLocation] = useState('');
@@ -24,14 +25,19 @@ function App() {
     setHasSelected(false);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!hasSelected) {
       alert("Please select a valid location before submitting.");
       return;
     }
-    console.log(location);
-    // Later here you will call the function to send a request to the server
+    try {
+      const response = await axios.post('http://localhost:5000/api/weather', { location });
+      console.log(response.data);
+      // Later, you will set the received data to your state and render it in your component
+    } catch (error) {
+      console.error('Error while fetching weather data:', error);
+    }
   };
 
   return (
