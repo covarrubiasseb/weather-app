@@ -43,15 +43,21 @@ function App() {
 
   return (
     <div className="App">
-      {
-        weatherData && weatherData.daily.slice(0, 7).map((day, index) => (
-          <div key={index}>
-            <h2>Day {index + 1}</h2>
-            <p>Temperature: {day.temp.day}°C</p>
-            <p>Weather: {day.weather[0].description}</p>
-          </div>
-        ))
-      }
+      <div className="row">
+        {
+          weatherData && weatherData.daily.slice(0, 7).map((day, index) => (
+            <div key={index} className="col-4 col-md-2 mb-4">
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">Day {index + 1}</h5>
+                  <h6 className="card-subtitle mb-2 text-muted">Temperature: {day.temp.day}°C</h6>
+                  <p className="card-text">Weather: {day.weather[0].description}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
       <h1>Weather App</h1>
       <form onSubmit={handleSubmit}>
         <input
