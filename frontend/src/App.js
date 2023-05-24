@@ -72,8 +72,8 @@ function App() {
                     alt={day.weather[0].description}
                   />
                   <h5 className="card-title">Day {index + 1}</h5>
-                  <h6 className="card-subtitle mb-2 text-muted">Temperature: {day.temp.day}°C</h6>
-                  <p className="card-text">Weather: {day.weather[0].description}</p>
+                  <h6 className="card-subtitle mb-2 text-white">Temperature: {day.temp.day}°C</h6>
+                  <p className="card-text text-white">Weather: {day.weather[0].description}</p>
                 </div>
               </div>
             </div>
@@ -92,7 +92,7 @@ function App() {
               value={location}
               onChange={handleChange}
             />
-            <button className="btn btn-primary" type="submit">Submit</button>
+            <button className="btn text-white bg-dark" type="submit">Submit</button>
           </form>
         </div>
       </div>

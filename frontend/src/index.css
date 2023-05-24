@@ -26,3 +26,21 @@ code {
 .card-body {
   flex-grow: 1; /* add this */
 }
+
+body {
+  background-color: #343a40; /* dark gray */
+}
+
+.card {
+  background-color: #212529; /* darker gray */
+}
+
+.card-title {
+  color: #17a2b8; /* light blue */
+}
+
+input[type="text"],
+.btn {
+  background-color: #495057; /* grayish */
+  color: #fff; /* white text */
+}
