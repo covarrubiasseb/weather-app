@@ -8,17 +8,35 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current);
-    
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      if (!place.place_id) {
-        alert("Please select a location from the dropdown.");
-        return;
-      }
-      setLocation(place.formatted_address);
-      setHasSelected(true);
+    const loadGoogleScript = () => {
+      return new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&libraries=places`;
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script);
+        script.onload = () => {
+          resolve();
+        };
+      });
+    };
+
+    loadGoogleScript().then(() => {
+      
+      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteInputRef.current);
+      
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.place_id) {
+          alert("Please select a location from the dropdown.");
+          return;
+        }
+        setLocation(place.formatted_address);
+        setHasSelected(true);
+      });
+
     });
+
   }, []);
 
   const handleChange = (event) => {

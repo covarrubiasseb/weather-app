@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 app.use(express.json());
 
@@ -17,13 +20,12 @@ app.post('/api/weather', async (req, res) => {
   const { location } = req.body;
   
   // Use the Google Maps Geocoding API to convert the location to coordinates
-  const geocodingResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=AIzaSyBPpa023LpiQ_hyCWqSumI0Jd9f_VluZOM`);
+  const geocodingResponse = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${process.env.GOOGLE_GEOCODING_API_KEY}`);
   
   const { lat, lng } = geocodingResponse.data.results[0].geometry.location;
 
   // Use the OpenWeather API to fetch weather data for the coordinates
-  const weatherResponse = await axios.get(`http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,alerts&units=metric&appid=64679053d74871f99247aa198d8287fe
-`);
+  const weatherResponse = await axios.get(`http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,alerts&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`);
   
   res.json(weatherResponse.data);
 });
