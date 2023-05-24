@@ -59,6 +59,8 @@ function App() {
     }
   };
 
+  const celsiusToFahrenheit = (celsius) => ((celsius * 9/5) + 32).toFixed(2);
+
   return (
     <div className="container">
       <div className="row mt-5">
@@ -67,13 +69,13 @@ function App() {
             <div key={index} className="equal-width-column d-flex">
               <div className="card align-items-stretch">
                 <div className="card-body text-center">
+                  <h5 className="card-title">Day {index + 1}</h5>
                   <img 
                     src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
                     alt={day.weather[0].description}
                   />
-                  <h5 className="card-title">Day {index + 1}</h5>
-                  <h6 className="card-subtitle mb-2 text-white">Temperature: {day.temp.day}°C</h6>
-                  <p className="card-text text-white">Weather: {day.weather[0].description}</p>
+                  <p className="card-text text-white">{day.weather[0].description}</p>
+                  <h6 className="card-subtitle mb-2 text-white">{Math.floor(celsiusToFahrenheit(day.temp.day))}°F</h6>
                 </div>
               </div>
             </div>
