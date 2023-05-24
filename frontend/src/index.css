@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.equal-width-column {
+  width: 14.28%; /* ~100 / 7 */
+  float: left;
+}
+
+.card {
+  width: 100%;
+  display: flex; /* add this */
+  flex-direction: column; /* add this */
+}
+
+.card-body {
+  flex-grow: 1; /* add this */
+}

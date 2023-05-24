@@ -60,12 +60,12 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="row">
+    <div className="container">
+      <div className="row mt-5">
         {
           weatherData && weatherData.daily.slice(0, 7).map((day, index) => (
-            <div key={index} className="col-4 col-md-2 mb-4">
-              <div className="card">
+            <div key={index} className="equal-width-column d-flex">
+              <div className="card align-items-stretch">
                 <div className="card-body">
                   <h5 className="card-title">Day {index + 1}</h5>
                   <h6 className="card-subtitle mb-2 text-muted">Temperature: {day.temp.day}°C</h6>
@@ -76,19 +76,25 @@ function App() {
           ))
         }
       </div>
-      <h1>Weather App</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          ref={autocompleteInputRef}
-          type="text"
-          placeholder="Enter your location"
-          value={location}
-          onChange={handleChange}
-        />
-        <button type="submit">Get Weather</button>
-      </form>
+
+      <div className="row justify-content-center">
+        <div className="col-6">
+          <form onSubmit={handleSubmit} className="input-group mt-5 w-100">
+            <input
+              className="form-control"
+              ref={autocompleteInputRef}
+              type="text"
+              placeholder="Enter your location"
+              value={location}
+              onChange={handleChange}
+            />
+            <button className="btn btn-primary" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
+
 }
 
 export default App;
